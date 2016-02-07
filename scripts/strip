@@ -6,4 +6,6 @@ set -o xtrace
 IN=${PWD}/${1}
 OUT=${PWD}/${2}
 
-find ${IN} -type f -exec strip '{}' -o ${OUT}/$(basename '{}') \;
+find ${IN} -type f | while read filename; do
+    strip -o ${OUT}/$(basename ${filename}) $filename
+done
