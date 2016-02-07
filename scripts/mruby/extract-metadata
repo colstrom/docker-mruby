@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+set -o xtrace
+
+IN=${PWD}/${1}
+OUT=${PWD}/{$1}
+
+cd ${IN}
+git describe --tags | tee ${OUT}/version
