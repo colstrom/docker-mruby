@@ -1,0 +1,13 @@
+---
+platform: linux
+image: docker:///package/git
+inputs:
+  - name: ci
+  - name: src
+outputs:
+  - name: metadata
+run:
+  path: ci/scripts/mruby/extract-metadata
+  args:
+    - src
+    - metadata
