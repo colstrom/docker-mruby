@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+set -o xtrace
+
+export CFLAGS=${CFLAGS:-'-fPIC'}
+export LDFLAGS=${LDFLAGS:-'-static'}
+
+CORES=$(cat /proc/cpuinfo | grep processor | wc -l)
+GEMBOX=${GEMBOX:-'default'}
+
+IN=${PWD}/${1}
+OUT=${PWD}/${2}
+
+sed -i "s/gembox 'default'/gembox '${GEMBOX}'/" ${IN}/build_config.rb
+
+make -C ${IN} -j${CORES}
+cp -a ${IN}/bin ${OUT}/
