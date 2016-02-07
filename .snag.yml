@@ -1,0 +1,8 @@
+---
+script:
+  - scripts/deploy-pipelines
+ignore:
+  - .git/**
+  - .lock
+  - .#*
+verbose: true
