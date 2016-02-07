@@ -1,0 +1,12 @@
+---
+platform: linux
+image: docker:///package/binutils
+inputs:
+  - name: compiled
+outputs:
+  - name: stripped
+run:
+  path: ci/scripts/strip
+  args:
+    - compiled
+    - stripped
