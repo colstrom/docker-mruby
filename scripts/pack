@@ -6,4 +6,6 @@ set -o xtrace
 IN=${PWD}/${1}
 OUT=${PWD}/${2}
 
-find ${IN} -type f -exec upx --lzma -o ${OUT}/$(basename '{}') '{}' \;
+find ${IN} -type f | while read filename; do
+    upx --lzma -o ${OUT}/$(basename ${filename}) $filename
+done
