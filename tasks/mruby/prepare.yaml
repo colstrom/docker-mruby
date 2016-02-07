@@ -7,7 +7,7 @@ inputs:
 outputs:
   - name: prepared
 run:
-  path: ci/scripts/prepare
+  path: ci/scripts/mruby/prepare
   args:
     - ci
     - packed
