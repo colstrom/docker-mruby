@@ -1,0 +1,14 @@
+---
+platform: linux
+image: docker:///colstrom/alpine
+inputs:
+  - name: ci
+  - name: packed
+outputs:
+  - name: prepared
+run:
+  path: ci/scripts/prepare
+  args:
+    - ci
+    - packed
+    - prepared
