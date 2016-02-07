@@ -7,7 +7,7 @@ inputs:
 outputs:
   - name: stripped
 run:
-  path: ci/scripts/strip
+  path: ci/scripts/mruby/strip
   args:
     - compiled
     - stripped
