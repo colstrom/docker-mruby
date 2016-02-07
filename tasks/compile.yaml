@@ -1,0 +1,13 @@
+---
+platform: linux
+image: docker:///lang/mruby#build
+inputs:
+  - name: ci
+  - name: src
+outputs:
+  - name: compiled
+run:
+  path: ci/scripts/compile
+  args:
+    - src
+    - compiled
