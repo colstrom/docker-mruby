@@ -7,7 +7,7 @@ inputs:
 outputs:
   - name: packed
 run:
-  path: ci/scripts/pack
+  path: ci/scripts/mruby/pack
   args:
     - stripped
     - packed
