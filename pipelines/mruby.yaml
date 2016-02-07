@@ -48,6 +48,7 @@ jobs:
       - get: ci
         trigger: true
       - get: mruby:build
+        trigger: true
       - get: src
       - task: compile
         file: ci/tasks/mruby/compile.yaml
