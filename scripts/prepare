@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+set -o xtrace
+
+CI=${PWD}/${1}
+IN=${PWD}/${2}
+OUT=${PWD}/${3}
+
+cp -a ${CI}/Dockerfile ${IN}/bin ${OUT}/
