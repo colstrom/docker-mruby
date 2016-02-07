@@ -36,6 +36,7 @@ jobs:
       - get: ruby
         trigger: true
       - get: ci
+        trigger: true
       - put: mruby:build
         params:
           build: ci/images/mruby/build
