@@ -2,6 +2,7 @@
 platform: linux
 image: docker:///contains/upx
 inputs:
+  - name: ci
   - name: stripped
 outputs:
   - name: packed
