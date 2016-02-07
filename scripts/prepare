@@ -8,5 +8,5 @@ CI=${PWD}/${1}
 IN=${PWD}/${2}
 OUT=${PWD}/${3}
 
-cp -a ${CI}/Dockerfile ${OUT}
+cp -a ${CI}/images/mruby/Dockerfile ${OUT}
 cp -a ${IN} ${OUT}/bin
