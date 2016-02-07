@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+SECRETS=${SECRETS:-'secrets.yaml'}
+
+secrets_exist() {
+    set +o errexit
+    test -f ${SECRETS}
+    status=$?
+    set -o errexit
+    return $status
+}
+
+find pipelines -type f -name '*.yaml' -exec basename -s .yaml '{}' \; | while read pipeline; do
+    if secrets_exist; then
+        fly set-pipeline --non-interactive --pipeline ${pipeline} --config pipelines/${pipeline}.yaml --load-vars-from secrets.yaml
+        fly unpause-pipeline --pipeline ${pipeline}
+    else
+        NO_SECRETS=$(mktemp)
+        awk '!/{{.*}}/' pipelines/${pipeline}.yaml > ${NO_SECRETS}
+        fly set-pipeline --non-interactive --pipeline ${pipeline}-readonly --config ${NO_SECRETS}
+        rm -f ${NO_SECRETS}
+        fly unpause-pipeline --pipeline ${pipeline}-readonly
+    fi
+done
