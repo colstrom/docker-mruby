@@ -1,0 +1,65 @@
+resources:
+  - name: ruby
+    type: docker-image
+    source:
+      repository: colstrom/ruby
+  - name: alpine
+    type: docker-image
+    source:
+      repository: colstrom/alpine
+  - name: upx
+    type: docker-image
+    source:
+      repository: contains/upx
+  - name: src
+    type: git
+    source:
+      uri: https://github.com/mruby/mruby
+  - name: ci
+    type: git
+    source:
+      uri: https://github.com/colstrom/docker-mruby
+  - name: mruby:build
+    type: docker-image
+    source:
+      repository: lang/mruby
+      tag: build
+      email: {{docker-email}}
+      username: {{docker-username}}
+      password: {{docker-password}}
+  - name: mruby
+    type: docker-image
+    source:
+      repository: lang/mruby
+      email: {{docker-email}}
+      username: {{docker-username}}
+      password: {{docker-password}}
+jobs:
+  - name: build
+    plan:
+      - get: ruby
+        trigger: true
+      - get: ci
+      - put: mruby:build
+        params:
+          build: ci/images/mruby/build
+  - name: mruby
+    plan:
+      - get: alpine
+        trigger: true
+      - get: ci
+        trigger: true
+      - get: upx
+      - get: mruby:build
+      - get: src
+      - task: compile
+        file: ci/tasks/mruby/compile.yaml
+      - task: strip
+        file: ci/tasks/mruby/strip.yaml
+      - task: pack
+        file: ci/tasks/mruby/pack.yaml
+      - task: prepare
+        file: ci/tasks/mruby/prepare.yaml
+      - put: mruby
+        params:
+          build: prepared
