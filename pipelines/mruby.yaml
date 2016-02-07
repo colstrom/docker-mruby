@@ -39,6 +39,7 @@ jobs:
       - put: mruby:build
         params:
           build: ci/images/mruby/build
+          cache: true
   - name: mruby
     plan:
       - get: alpine
