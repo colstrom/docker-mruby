@@ -7,7 +7,7 @@ inputs:
 outputs:
   - name: compiled
 run:
-  path: ci/scripts/compile
+  path: ci/scripts/mruby/compile
   args:
     - src
     - compiled
