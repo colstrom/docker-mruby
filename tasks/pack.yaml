@@ -1,0 +1,12 @@
+---
+platform: linux
+image: docker:///contains/upx
+inputs:
+  - name: stripped
+outputs:
+  - name: packed
+run:
+  path: ci/scripts/pack
+  args:
+    - stripped
+    - packed
