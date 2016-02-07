@@ -47,6 +47,8 @@ jobs:
         trigger: true
       - get: ci
         trigger: true
+        passed:
+          - build
       - get: mruby:build
         trigger: true
       - get: src
