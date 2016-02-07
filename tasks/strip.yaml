@@ -2,6 +2,7 @@
 platform: linux
 image: docker:///package/binutils
 inputs:
+  - name: ci
   - name: compiled
 outputs:
   - name: stripped
