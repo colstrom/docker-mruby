@@ -7,10 +7,6 @@ resources:
     type: docker-image
     source:
       repository: colstrom/alpine
-  - name: upx
-    type: docker-image
-    source:
-      repository: contains/upx
   - name: src
     type: git
     source:
@@ -49,7 +45,6 @@ jobs:
         trigger: true
       - get: ci
         trigger: true
-      - get: upx
       - get: mruby:build
       - get: src
       - task: compile
