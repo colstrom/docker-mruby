@@ -1,0 +1,76 @@
+#+TITLE: Build Pipeline for mruby on Docker
+#+LATEX_HEADER: \hypersetup{%
+#+LATEX_HEADER:   pdfborder = {0 0 0}
+#+LATEX_HEADER: }
+#+LATEX: \pagebreak
+
+* Overview
+
+This repository contains a complete pipeline to build ~mruby~ on Docker.
+
+* Usage
+
+** Cloning the Repository
+
+#+BEGIN_SRC shell
+  git clone https://github.com/colstrom/docker-mruby.git
+#+END_SRC
+
+** (Optional) Deploying Concourse with Vagrant
+
+This pipeline is intended for deployment with [[https://concourse.ci/][Concourse]]. If you do do not have
+an existing Concourse deployment, you can use the included ~Vagrantfile~ to
+create one locally with ~vagrant~.
+
+You can skip this if you already have Concourse.
+
+#+BEGIN_SRC shell
+  vagrant up
+#+END_SRC
+
+** Deploying the Pipeline
+
+The simplest deployment requires no configuration, but is unable to publish the
+artifacts it builds.
+
+#+BEGIN_SRC shell
+  scripts/deploy-pipelines
+#+END_SRC
+
+** Adding Your Secrets
+
+For the final output step to be useful, it needs somewhere to push. Since that
+is an authenticated resource, you will need to supply some _secrets_ of your
+own.
+
+Conventionally we place these in a ~secrets.yaml~ file, which is included in the
+~.gitignore~ for the repository, to prevent accidental publication of secrets.
+If you prefer a different location, set ~$SECRETS~ in your environment to the
+path you wish to use.
+
+#+BEGIN_SRC yaml
+  docker-repository: repository/image
+  docker-email: user@example.local
+  docker-username: YOUR-USERNAME
+  docker-password: YOUR-PASSWORD
+#+END_SRC
+
+** Deploying Your Secrets (with the Pipeline)
+
+... or the other way around, if you prefer to read it that way.
+
+~scripts/deploy-pipelines~ will detect if secrets are available, and deploy the
+pipeline accordingly.
+
+#+BEGIN_SRC shell
+  scripts/deploy-pipelines
+#+END_SRC
+
+* License
+
+[[https://tldrlegal.com/license/mit-license][MIT License]]
+
+ See ~LICENSE.txt~ for the full text.
+
+* Contributors
+- [[https://colstrom.github.io/][Chris Olstrom]] | [[mailto:chris@olstrom.com][e-mail]] | [[https://twitter.com/ChrisOlstrom][Twitter]]
