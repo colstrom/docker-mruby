@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+PIPELINE=${1}
+
+mkdir -p docs/images
+
+for pipeline in $@; do
+    webkit2png --fullsize --dir docs/images --filename ${pipeline} --ignore-ssl-check http://192.168.100.4:8080/pipelines/${pipeline}
+    optipng docs/images/${pipeline}-full.png
+done
