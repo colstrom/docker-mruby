@@ -65,3 +65,7 @@ jobs:
       - put: mruby
         params:
           build: prepared
+      - put: mruby
+        params:
+          build: prepared
+          tag: metadata/version
