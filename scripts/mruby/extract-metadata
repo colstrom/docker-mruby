@@ -5,7 +5,7 @@ set -o nounset
 set -o xtrace
 
 IN=${PWD}/${1}
-OUT=${PWD}/${1}
+OUT=${PWD}/${2}
 
 cd ${IN}
 git describe --tags | tee ${OUT}/version
