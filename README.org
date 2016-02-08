@@ -8,6 +8,8 @@
 
 This repository contains a complete pipeline to build ~mruby~ on Docker.
 
+[[https://raw.githubusercontent.com/colstrom/docker-mruby/develop/docs/images/mruby-full.png]]
+
 * Usage
 
 ** Cloning the Repository
