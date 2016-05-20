@@ -1,6 +1,9 @@
 ---
 platform: linux
-image: docker:///colstrom/alpine
+image_resource:
+  type: docker-image
+  source:
+    repository: colstrom/alpine
 inputs:
   - name: ci
   - name: packed
