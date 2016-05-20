@@ -33,22 +33,18 @@ resources:
 jobs:
   - name: build
     plan:
-      - get: ruby
-        trigger: true
       - get: ci
         trigger: true
       - put: mruby:build
         params:
           build: ci/images/mruby/build
           cache: true
-  - name: mruby
+  - name: release
     plan:
       - get: alpine
         trigger: true
       - get: ci
         trigger: true
-        passed:
-          - build
       - get: mruby:build
         trigger: true
       - get: src
