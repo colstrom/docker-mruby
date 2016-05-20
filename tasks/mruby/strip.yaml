@@ -1,6 +1,9 @@
 ---
 platform: linux
-image: docker:///package/binutils
+image_resource:
+  type: docker-image
+  source:
+    repository: package/binutils
 inputs:
   - name: ci
   - name: compiled
