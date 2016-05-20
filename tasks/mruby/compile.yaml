@@ -1,6 +1,10 @@
 ---
 platform: linux
-image: docker:///lang/mruby#build
+image_resource:
+  type: docker-image
+  source:
+    repository: lang/mruby
+    tag: build
 inputs:
   - name: ci
   - name: src
