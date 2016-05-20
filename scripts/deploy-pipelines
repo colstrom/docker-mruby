@@ -4,6 +4,7 @@ set -o errexit
 set -o nounset
 
 SECRETS=${SECRETS:-'secrets.yaml'}
+TARGET=${1:-'default'}
 
 secrets_exist() {
     set +o errexit
@@ -15,13 +16,13 @@ secrets_exist() {
 
 find pipelines -type f -name '*.yaml' -exec basename -s .yaml '{}' \; | while read pipeline; do
     if secrets_exist; then
-        fly set-pipeline --non-interactive --pipeline ${pipeline} --config pipelines/${pipeline}.yaml --load-vars-from secrets.yaml
-        fly unpause-pipeline --pipeline ${pipeline}
+        fly -t ${TARGET} set-pipeline --non-interactive --pipeline ${pipeline} --config pipelines/${pipeline}.yaml --load-vars-from secrets.yaml
+        fly -t ${TARGET} unpause-pipeline --pipeline ${pipeline}
     else
         NO_SECRETS=$(mktemp)
         awk '!/{{.*}}/' pipelines/${pipeline}.yaml > ${NO_SECRETS}
-        fly set-pipeline --non-interactive --pipeline ${pipeline}-readonly --config ${NO_SECRETS}
+        fly -t ${TARGET} set-pipeline --non-interactive --pipeline ${pipeline}-readonly --config ${NO_SECRETS}
         rm -f ${NO_SECRETS}
-        fly unpause-pipeline --pipeline ${pipeline}-readonly
+        fly -t ${TARGET} unpause-pipeline --pipeline ${pipeline}-readonly
     fi
 done
